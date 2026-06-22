@@ -4,554 +4,1068 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yummy Gummy | Menú Completo</title>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Diseño General */
+        :root {
+            --rosa: #f9427b;
+            --naranja: #ff8c42;
+            --amarillo: #ffd93d;
+            --morado: #a855f7;
+            --verde: #25D366;
+            --fondo: #fff8f5;
+            --blanco: #ffffff;
+            --gris-texto: #444;
+            --sombra: 0 6px 20px rgba(249,66,123,0.12);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Nunito', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fff5f2;
-            color: #333;
+            background-color: var(--fondo);
+            color: var(--gris-texto);
         }
 
-        /* Encabezado */
+        /* ── HEADER ── */
         header {
-            background: linear-gradient(135deg, #f9427b, #ff8c42); 
+            background: linear-gradient(135deg, #f9427b 0%, #ff8c42 60%, #ffd93d 100%);
             color: white;
-            padding: 40px 0;
+            padding: 50px 20px 40px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
-
+        header::before {
+            content: '';
+            position: absolute;
+            top: -40px; left: -40px;
+            width: 180px; height: 180px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; right: -30px;
+            width: 220px; height: 220px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%;
+        }
         header h1 {
+            font-family: 'Fredoka One', cursive;
             margin: 0;
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: clamp(2.8rem, 8vw, 5rem);
             letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.15);
+            position: relative;
         }
-
         header p {
-            margin: 10px 0 0 0;
-            font-size: 1.3rem;
-            font-weight: bold;
+            margin: 10px 0 0;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            opacity: 0.95;
+            position: relative;
+        }
+        .header-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+            position: relative;
+        }
+        .header-badge {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(4px);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
         }
 
-        /* Barra de Navegación Rápida */
+        /* ── NAV ── */
         nav {
-            background-color: white;
+            background-color: var(--blanco);
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-align: center;
-            padding: 15px 0;
+            z-index: 200;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
         }
-
+        nav::-webkit-scrollbar { display: none; }
+        .nav-inner {
+            display: inline-flex;
+            gap: 4px;
+            padding: 10px 16px;
+            min-width: 100%;
+            justify-content: center;
+        }
         nav a {
-            color: #f9427b;
+            color: var(--gris-texto);
             text-decoration: none;
-            font-weight: bold;
-            margin: 0 15px;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+            font-weight: 800;
+            font-size: 0.88rem;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.25s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        nav a:hover, nav a.active {
+            background: linear-gradient(135deg, var(--rosa), var(--naranja));
+            color: white;
         }
 
-        nav a:hover {
-            color: #ff8c42;
-        }
-
+        /* ── CONTENEDOR ── */
         .contenedor {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 20px 16px 120px;
         }
 
-        /* Títulos de Categorías */
-        .categoria-titulo {
-            font-size: 2.4rem;
-            color: #f9427b;
-            border-bottom: 3px solid #ff8c42;
-            padding-bottom: 10px;
-            margin-top: 60px;
-            margin-bottom: 30px;
-            display: inline-block;
-        }
-
-        .grid-productos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        /* Tarjeta de Producto */
-        .producto {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.06);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #ffe8e0;
-        }
-
-        .producto:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(249, 66, 123, 0.15);
-        }
-
-        .foto-producto {
-            width: 100%;
-            height: 180px;
-            background-color: #fdf2f0;
-            border-radius: 10px;
+        /* ── TÍTULO CATEGORÍA ── */
+        .categoria-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #ff8c42;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            border: 1px dashed #ffcbd1;
+            gap: 14px;
+            margin: 52px 0 24px;
+        }
+        .categoria-titulo {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            color: var(--rosa);
+            margin: 0;
+            line-height: 1;
+        }
+        .categoria-linea {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(to right, var(--naranja), transparent);
+            border-radius: 2px;
+        }
+
+        /* ── GRID PRODUCTOS ── */
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* ── TARJETA ── */
+        .producto {
+            background: var(--blanco);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s;
+            border: 1.5px solid #ffe8e0;
+        }
+        .producto:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 35px rgba(249,66,123,0.2);
+        }
+
+        /* Zona imagen */
+        .foto-producto-wrap {
+            width: 100%;
+            height: 190px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff0ec, #ffe8f5);
+        }
+        .foto-producto {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .producto:hover .foto-producto {
+            transform: scale(1.05);
+        }
+        /* Placeholder cuando no hay foto */
+        .foto-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffb3c6;
+            gap: 8px;
+        }
+        .foto-placeholder span {
+            font-size: 2.8rem;
+        }
+        .foto-placeholder p {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #ffb3c6;
+            margin: 0;
+            text-align: center;
+            padding: 0 16px;
         }
 
-        .nombre-producto {
-            font-size: 1.3rem;
-            color: #ff5722;
-            margin: 0 0 8px 0;
-            font-weight: bold;
-        }
-
-        .descripcion {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 15px;
-            flex-grow: 1;
-            line-height: 1.4;
-        }
-
-        .precio {
-            font-size: 1.5rem;
-            color: #333;
+        /* Badge NUEVO */
+        .badge-nuevo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, var(--morado), #7c3aed);
+            color: white;
+            font-size: 0.72rem;
             font-weight: 900;
-            margin-bottom: 15px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(168,85,247,0.4);
         }
 
+        /* Info producto */
+        .producto-info {
+            padding: 16px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .nombre-producto {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            color: #e03060;
+            margin: 0 0 6px;
+            line-height: 1.2;
+        }
+        .descripcion {
+            font-size: 0.85rem;
+            color: #777;
+            margin: 0 0 14px;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+        .producto-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .precio {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.7rem;
+            color: #333;
+            line-height: 1;
+        }
         .boton-comprar {
-            background: linear-gradient(to right, #f9427b, #ff8c42);
+            background: linear-gradient(135deg, var(--rosa), var(--naranja));
             color: white;
             border: none;
-            padding: 12px;
-            font-size: 1rem;
-            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 0.88rem;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s, opacity 0.3s;
+            font-weight: 800;
+            font-family: 'Nunito', sans-serif;
+            transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(249,66,123,0.3);
+            white-space: nowrap;
         }
-
         .boton-comprar:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(249,66,123,0.45);
+        }
+        .boton-comprar:active {
+            transform: scale(0.97);
         }
 
-        /* SECCIÓN PERSONALIZACIÓN */
+        /* ── PERSONALIZAR ── */
         .seccion-personalizar {
-            background-color: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-top: 70px;
-            border: 2px solid #ff8c42;
+            background: var(--blanco);
+            border-radius: 22px;
+            padding: clamp(24px, 5vw, 44px);
+            box-shadow: var(--sombra);
+            margin-top: 60px;
+            border: 2px solid #ffe0b2;
+            position: relative;
+            overflow: hidden;
         }
-
+        .seccion-personalizar::before {
+            content: '✨';
+            position: absolute;
+            font-size: 8rem;
+            right: -10px;
+            top: -20px;
+            opacity: 0.06;
+        }
+        .seccion-personalizar h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--rosa);
+            margin: 0 0 6px;
+            font-size: clamp(1.6rem, 4vw, 2.1rem);
+        }
+        .seccion-personalizar > p {
+            color: #888;
+            margin: 0 0 28px;
+            font-size: 0.95rem;
+        }
         .form-grupo {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
-
-        .form-grupo label {
+        .form-grupo > label {
             display: block;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #f9427b;
-            margin-bottom: 10px;
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #555;
+            margin-bottom: 12px;
         }
-
+        .form-grupo > label span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, var(--rosa), var(--naranja));
+            color: white;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            font-weight: 900;
+        }
         .form-control {
             width: 100%;
-            max-width: 400px;
-            padding: 12px;
-            font-size: 1rem;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            max-width: 380px;
+            padding: 13px 16px;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 2px solid #ffe0b2;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            outline: none;
+            transition: border-color 0.2s;
+            appearance: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f9427b' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center, white;
         }
-
+        .form-control:focus {
+            border-color: var(--rosa);
+        }
         .grid-toppings {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 10px;
         }
-
         .topping-item {
             display: flex;
             align-items: center;
-            background-color: #fff5f2;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #ffe2da;
+            background: #fff5f2;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #ffe2da;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
+            font-weight: 700;
+            font-size: 0.85rem;
+            gap: 10px;
         }
-
         .topping-item:hover {
-            background-color: #ffe2da;
+            background: #ffe8e0;
+            border-color: var(--naranja);
         }
-
-        .topping-item input {
-            margin-right: 12px;
-            transform: scale(1.2);
-            accent-color: #f9427b;
+        .topping-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            accent-color: var(--rosa);
+            cursor: pointer;
         }
-
         .badge-limitado {
-            background-color: #ff3333;
+            background: linear-gradient(135deg, #ff3333, #ff6b35);
             color: white;
+            font-size: 0.68rem;
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── CARRITO FLOTANTE ── */
+        #carrito-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+            border: 2px solid #ffe0b2;
+            display: none;
+            width: min(300px, calc(100vw - 32px));
+            z-index: 1000;
+            font-family: 'Nunito', sans-serif;
+        }
+        #carrito-flotante h3 {
+            margin: 0 0 12px;
+            font-family: 'Fredoka One', cursive;
+            color: var(--rosa);
+            font-size: 1.4rem;
+            border-bottom: 2px dashed #ffe8e0;
+            padding-bottom: 10px;
+        }
+        #lista-carrito {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 14px;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+        #lista-carrito li {
+            font-size: 0.88rem;
+            border-bottom: 1px solid #f5f5f5;
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #555;
+            gap: 8px;
+        }
+        #lista-carrito li span:last-child {
+            font-weight: 800;
+            color: var(--naranja);
+            white-space: nowrap;
+        }
+        .carrito-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+            color: #333;
+        }
+        #btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 13px;
+            width: 100%;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+        }
+        #btn-whatsapp:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(37,211,102,0.5);
+        }
+        #btn-vaciar {
+            background: transparent;
+            color: #bbb;
+            border: none;
+            width: 100%;
+            margin-top: 8px;
+            cursor: pointer;
+            text-decoration: underline;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        /* Botón flotante mini (cuando carrito está oculto) */
+        #btn-carrito-mini {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            background: linear-gradient(135deg, var(--rosa), var(--naranja));
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 6px 20px rgba(249,66,123,0.4);
+            transition: transform 0.2s;
+            align-items: center;
+            justify-content: center;
+        }
+        #btn-carrito-mini:hover { transform: scale(1.1); }
+        #badge-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--amarillo);
+            color: #333;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
             font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 5px;
-            font-weight: bold;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: linear-gradient(135deg, #f9427b, #ff8c42);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        footer p { margin: 4px 0; opacity: 0.9; }
+
+        /* ── RESPONSIVE MÓVIL ── */
+        @media (max-width: 600px) {
+            header { padding: 36px 16px 28px; }
+
+            .nav-inner { justify-content: flex-start; }
+            nav a { font-size: 0.82rem; padding: 7px 13px; }
+
+            .contenedor { padding: 12px 12px 120px; }
+
+            .categoria-header { margin: 36px 0 18px; }
+
+            .grid-productos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .foto-producto-wrap { height: 140px; }
+
+            .producto-info { padding: 12px 12px 14px; }
+
+            .nombre-producto { font-size: 1rem; }
+            .descripcion { font-size: 0.78rem; margin-bottom: 10px; }
+
+            .producto-footer { flex-direction: column; align-items: stretch; gap: 8px; }
+            .precio { font-size: 1.5rem; text-align: center; }
+            .boton-comprar { width: 100%; text-align: center; padding: 10px; font-size: 0.82rem; }
+
+            .grid-toppings { grid-template-columns: repeat(2, 1fr); }
+            .topping-item { font-size: 0.78rem; padding: 8px 10px; }
+
+            .seccion-personalizar { padding: 22px 16px; }
+        }
+
+        @media (max-width: 380px) {
+            .grid-productos { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Yummy Gummy</h1>
+        <h1>🍬 Yummy Gummy</h1>
         <p>🔥 El mejor sabor para tus antojos 🔥</p>
+        <div class="header-badges">
+            <span class="header-badge">🚚 Pedidos por WhatsApp</span>
+            <span class="header-badge">🎨 ¡Arma tu combinación!</span>
+
+        </div>
     </header>
 
     <nav>
-        <a href="#charolas">Charolas</a>
-        <a href="#enchiladas">Bolsas Enchiladas</a>
-        <a href="#ahogadas">Bolsas Ahogadas</a>
-        <a href="#personalizar">✨ Arma tu Combinación</a>
+        <div class="nav-inner">
+            <a href="#charolas">🔥 Charolas</a>
+            <a href="#enchiladas">🌶️ Enchiladas</a>
+            <a href="#ahogadas">💦 Ahogadas</a>
+            <a href="#personalizar">✨ Personaliza</a>
+        </div>
     </nav>
 
     <div class="contenedor">
-        
-        <h2 class="categoria-titulo" id="charolas">🔥 Charolas</h2>
-        <div class="grid-productos">
-            <div class="producto">
-                <div class="foto-producto">[Foto Charola Clásica]</div>
-                <h3 class="nombre-producto">Clásica</h3>
-                <p class="descripcion">Incluye cacahuates, picafresas, bolas de tamarindo, checolines, skittles, panditas, aritos, gusanitos y manguitos.</p>
-                <div class="precio">$150</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
 
-            <div class="producto">
-                <div class="foto-producto">[Foto Extra de Skittles]</div>
-                <h3 class="nombre-producto">Extra de Skittles</h3>
-                <p class="descripcion">Combinación perfecta con Skittles, aritos, picafresas y gusanitos enchilados.</p>
-                <div class="precio">$200</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Picafresa Enchilada]</div>
-                <h3 class="nombre-producto">Picafresa Enchilada</h3>
-                <p class="descripcion">Gran variedad con deliciosas picafresas, skittles, panditas, aritos y gusanitos.</p>
-                <div class="precio">$170</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Chamoy Mix]</div>
-                <h3 class="nombre-producto">Chamoy Mix</h3>
-                <p class="descripcion">Una mezcla de skittles, panditas, gusanitos, picafresas, bolitas de chamoy y aritos.</p>
-                <div class="precio">$180</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Llavecita Acidita]</div>
-                <h3 class="nombre-producto">Llavecita Acidita</h3>
-                <p class="descripcion">Para los amantes de lo agridulce: skittles, aciduladitos, aritos, llavecitas agridulces y gusanitos.</p>
-                <div class="precio">$180</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Charola Premium]</div>
-                <h3 class="nombre-producto">Premium</h3>
-                <p class="descripcion">Máximo sabor con skittles, xtremes, skwinkles y un fruit by the foot completo.</p>
-                <div class="precio">$320</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
+        <!-- ══ CHAROLAS ══ -->
+        <div class="categoria-header" id="charolas">
+            <h2 class="categoria-titulo">🔥 Charolas</h2>
+            <div class="categoria-linea"></div>
         </div>
-
-        <h2 class="categoria-titulo" id="enchiladas">🔥 Bolsas Enchiladas</h2>
         <div class="grid-productos">
-            <div class="producto">
-                <div class="foto-producto">[Foto Bolsa Clásica]</div>
-                <h3 class="nombre-producto">Clásica (400gr)</h3>
-                <p class="descripcion">Lleva cacahuates, picafresas, bolas de tamarindo, checolines, skittles, panditas, aritos, gusanitos y manguitos.</p>
-                <div class="precio">$80</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
 
             <div class="producto">
-                <div class="foto-producto">[Foto Mix de Gomitas]</div>
-                <h3 class="nombre-producto">Bolsa Mix de Gomitas (400gr)</h3>
-                <p class="descripcion">Una excelente selección que incluye panditas, manguitos, gusanitos y aritos.</p>
-                <div class="precio">$100</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Aritos con Lucas]</div>
-                <h3 class="nombre-producto">Aritos con Lucas (400gr)</h3>
-                <p class="descripcion">Aritos sabor sandía totalmente bañados con Lucas gusano y nuestra mezcla especial de chilito.</p>
-                <div class="precio">$100</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Paquete Fruit by the Foot]</div>
-                <h3 class="nombre-producto">Fruit by the Foot (6 pzas)</h3>
-                <p class="descripcion">Paquete completo con 6 piezas de tus tiras frutales favoritas listas para disfrutar.</p>
-                <div class="precio">$120</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Bolsa Rellerindos]</div>
-                <h3 class="nombre-producto">Bolsa de Rellerindos (400gr)</h3>
-                <p class="descripcion">¡NUEVO! Los clásicos rellerindos cubiertos e impregnados con nuestra mezcla de la casa.</p>
-                <div class="precio">$140</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Bolsa Zumbagomas]</div>
-                <h3 class="nombre-producto">Bolsa de Zumbagomas (400gr)</h3>
-                <p class="descripcion">Gomitas grandes y masticables cubiertas generosamente con chilito delicioso.</p>
-                <div class="precio">$150</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Bolsa Xtremes]</div>
-                <h3 class="nombre-producto">Bolsa de Xtremes (300gr)</h3>
-                <p class="descripcion">Tiras de lo más ácido del menú preparadas con la receta secreta Yummy Gummy.</p>
-                <div class="precio">$170</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Bolsa Skwinkles]</div>
-                <h3 class="nombre-producto">Bolsa de Skwinkles (300gr)</h3>
-                <p class="descripcion">Los favoritos de muchos, rebanados y espolvoreados a la perfección.</p>
-                <div class="precio">$170</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Watermelon Sour Belts]</div>
-                <h3 class="nombre-producto">Watermelon Sour Belts (300gr)</h3>
-                <p class="descripcion">Tiras ácidas de sandía que combinan increíblemente con la mezcla de chiles de la casa.</p>
-                <div class="precio">$170</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Strawberry Ropes]</div>
-                <h3 class="nombre-producto">Strawberry Ropes (400gr)</h3>
-                <p class="descripcion">¡NUEVO! Deliciosos tubos suaves sabor fresa cubiertos con nuestra icónica mezcla.</p>
-                <div class="precio">$180</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Bolsa Skittles]</div>
-                <h3 class="nombre-producto">Bolsa de Skittles (400gr)</h3>
-                <p class="descripcion">Tus caramelos masticables favoritos completamente cubiertos con nuestro chilito.</p>
-                <div class="precio">$190</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-        </div>
-
-        <h2 class="categoria-titulo" id="ahogadas">💦 Bolsas de Gomitas Ahogadas</h2>
-        <div class="grid-productos">
-            <div class="producto">
-                <div class="foto-producto">[Foto Gomitas Ahogadas]</div>
-                <h3 class="nombre-producto">Gomitas Ahogadas (500gr)</h3>
-                <p class="descripcion">Gomitas bañadas con MUCHO de nuestro chamoy preparado artesanal. Elige entre llavecitas, aritos, gusanitos, manguitos o panditas.</p>
-                <div class="precio">$120</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Dulces Ahogados]</div>
-                <h3 class="nombre-producto">Dulces Ahogados (500gr)</h3>
-                <p class="descripcion">Dulces seleccionados bañados con abundante chamoy preparado. Pueden ser aciduladitos o picafresas.</p>
-                <div class="precio">$125</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Dulces Premium Ahogados]</div>
-                <h3 class="nombre-producto">Premium Ahogados (500gr)</h3>
-                <p class="descripcion">Gomitas de la línea premium bañadas en chamoy. Puedes elegir Skwinkles, Xtremes o Zumbagomas (Zumbagomas quedan en $160).</p>
-                <div class="precio">$180</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Gushers 250g]</div>
-                <h3 class="nombre-producto">Gushers Enchilados (250gr)</h3>
-                <p class="descripcion">Esferas con centro líquido cubiertas de nuestra mezcla. *Pídelas ahogadas en chamoy por +$20.</p>
-                <div class="precio">$200</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-
-            <div class="producto">
-                <div class="foto-producto">[Foto Gushers 500g]</div>
-                <h3 class="nombre-producto">Gushers Enchilados (500gr)</h3>
-                <p class="descripcion">Presentación grande de Gushers con nuestra receta especial. *Pídelas ahogadas en chamoy por +$20.</p>
-                <div class="precio">$380</div>
-                <button class="boton-comprar">Agregar al carrito</button>
-            </div>
-        </div>
-
-        <div class="seccion-personalizar" id="personalizar">
-            <h2 style="color: #f9427b; margin-top: 0; font-size: 2rem;">✨ Arma tu Combinación Ideal</h2>
-            <p style="color: #666; margin-bottom: 30px;">¿Tienes un antojo muy específico? Elige tu formato base y selecciona todos los toppings que desees añadir a tu bolsa o charola personalizada.</p>
-            
-            <form>
-                <div class="form-grupo">
-                    <label>1. Selecciona tu Base:</label>
-                    <select class="form-control">
-                        <option>Bolsa Enchilada Personalizada</option>
-                        <option>Bolsa Ahogada Personalizada</option>
-                        <option>Charola Personalizada</option>
-                    </select>
+                <div class="foto-producto-wrap">
+                    <!-- REEMPLAZA el src con tu foto real: <img class="foto-producto" src="fotos/charola-clasica.jpg" alt="Charola Clásica"> -->
+                    <div class="foto-placeholder"><span>🍬</span><p>Foto Charola Clásica</p></div>
                 </div>
-
-                <div class="form-grupo">
-                    <label>2. Elige tus Toppings:</label>
-                    <div class="grid-toppings">
-                        <label class="topping-item"><input type="checkbox">Bolas de tamarindo</label>
-                        <label class="topping-item"><input type="checkbox">Bolitas de chamoy</label>
-                        <label class="topping-item"><input type="checkbox">Checolines</label>
-                        <label class="topping-item"><input type="checkbox">Cacahuates enchilados</label>
-                        <label class="topping-item"><input type="checkbox">Manguitos</label>
-                        <label class="topping-item"><input type="checkbox">Panditas</label>
-                        <label class="topping-item"><input type="checkbox">Aritos</label>
-                        <label class="topping-item"><input type="checkbox">Gusanitos</label>
-                        <label class="topping-item"><input type="checkbox">Picagomas</label>
-                        <label class="topping-item"><input type="checkbox">Llavecitas aciditas</label>
-                        <label class="topping-item"><input type="checkbox">Aciduladitos</label>
-                        <label class="topping-item"><input type="checkbox">Skittles</label>
-                        <label class="topping-item"><input type="checkbox">Fruit by the foot</label>
-                        <label class="topping-item"><input type="checkbox">Xtremes</label>
-                        <label class="topping-item"><input type="checkbox">Skwinkles</label>
-                        <label class="topping-item"><input type="checkbox">Zumbagomas</label>
-                        <label class="topping-item"><input type="checkbox">Gushers</label>
-                        <label class="topping-item"><input type="checkbox">Watermelon sour belts</label>
-                        <label class="topping-item"><input type="checkbox">Rellerindos</label>
-                        <label class="topping-item"><input type="checkbox">Strawberry Ropes</label>
-                        <label class="topping-item"><input type="checkbox">Rebanaditas de sandía</label>
-                        <label class="topping-item"><input type="checkbox">Sour Patch <span class="badge-limitado">Temporal</span></label>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Clásica</h3>
+                    <p class="descripcion">Cacahuates, picafresas, bolas de tamarindo, checolines, skittles, panditas, aritos, gusanitos y manguitos.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$150</div>
+                        <button class="boton-comprar" data-nombre="Charola Clásica" data-precio="150">+ Agregar</button>
                     </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🍭</span><p>Foto Extra de Skittles</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Extra de Skittles</h3>
+                    <p class="descripcion">Skittles, aritos, picafresas y gusanitos enchilados. ¡Para los fans de lo frutal!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$200</div>
+                        <button class="boton-comprar" data-nombre="Charola Extra Skittles" data-precio="200">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🍓</span><p>Foto Picafresa Enchilada</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Picafresa Enchilada</h3>
+                    <p class="descripcion">Picafresas, skittles, panditas, aritos y gusanitos. Un clásico irresistible.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$170</div>
+                        <button class="boton-comprar" data-nombre="Charola Picafresa" data-precio="170">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🫙</span><p>Foto Chamoy Mix</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Chamoy Mix</h3>
+                    <p class="descripcion">Skittles, panditas, gusanitos, picafresas, bolitas de chamoy y aritos.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$180</div>
+                        <button class="boton-comprar" data-nombre="Charola Chamoy Mix" data-precio="180">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🔑</span><p>Foto Llavecita Acidita</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Llavecita Acidita</h3>
+                    <p class="descripcion">Skittles, aciduladitos, aritos, llavecitas agridulces y gusanitos. ¡Para amantes de lo ácido!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$180</div>
+                        <button class="boton-comprar" data-nombre="Charola Llavecita Acidita" data-precio="180">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>⭐</span><p>Foto Charola Premium</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Premium</h3>
+                    <p class="descripcion">Skittles, xtremes, skwinkles y un fruit by the foot completo. ¡Máximo nivel!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$320</div>
+                        <button class="boton-comprar" data-nombre="Charola Premium" data-precio="320">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
+        <!-- ══ BOLSAS ENCHILADAS ══ -->
+        <div class="categoria-header" id="enchiladas">
+            <h2 class="categoria-titulo">🌶️ Bolsas Enchiladas</h2>
+            <div class="categoria-linea"></div>
+        </div>
+        <div class="grid-productos">
 
-    <div id="carrito-flotante" style="position: fixed; bottom: 20px; right: 20px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #ff8c42; display: none; width: 280px; z-index: 1000; font-family: sans-serif;">
-        <h3 style="margin-top: 0; color: #f9427b; font-size: 1.5rem; border-bottom: 2px dashed #ffe8e0; padding-bottom: 10px;">🛒 Tu Pedido</h3>
-        <ul id="lista-carrito" style="list-style: none; padding: 0; margin: 0 0 15px 0; max-height: 200px; overflow-y: auto; color: #555;">
-        </ul>
-        <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 1.3rem; margin-bottom: 15px; color: #333;">
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🛍️</span><p>Foto Bolsa Clásica</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Clásica (400gr)</h3>
+                    <p class="descripcion">Cacahuates, picafresas, tamarindo, checolines, skittles, panditas, aritos, gusanitos y manguitos.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$80</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Clásica 400gr" data-precio="80">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🐻</span><p>Foto Mix de Gomitas</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Mix de Gomitas (400gr)</h3>
+                    <p class="descripcion">Panditas, manguitos, gusanitos y aritos. La combinación perfecta de gomitas.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$100</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Mix Gomitas 400gr" data-precio="100">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🍉</span><p>Foto Aritos con Lucas</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Aritos con Lucas (400gr)</h3>
+                    <p class="descripcion">Aritos sabor sandía bañados con Lucas gusano y mezcla especial de chilito.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$100</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Aritos Lucas 400gr" data-precio="100">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🎀</span><p>Foto Fruit by the Foot</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Fruit by the Foot (6 pzas)</h3>
+                    <p class="descripcion">6 piezas de tus tiras frutales favoritas listas para disfrutar.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$120</div>
+                        <button class="boton-comprar" data-nombre="Fruit by the Foot 6pzas" data-precio="120">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <span class="badge-nuevo">✨ Nuevo</span>
+                    <div class="foto-placeholder"><span>🍑</span><p>Foto Bolsa Rellerindos</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Rellerindos (400gr)</h3>
+                    <p class="descripcion">Los clásicos rellerindos cubiertos con nuestra mezcla de la casa. ¡NUEVO!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$140</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Rellerindos 400gr" data-precio="140">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🟡</span><p>Foto Zumbagomas</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Zumbagomas (400gr)</h3>
+                    <p class="descripcion">Gomitas grandes y masticables cubiertas con chilito delicioso.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$150</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Zumbagomas 400gr" data-precio="150">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>⚡</span><p>Foto Bolsa Xtremes</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Xtremes (300gr)</h3>
+                    <p class="descripcion">Tiras de lo más ácido del menú preparadas con la receta secreta Yummy Gummy.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$170</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Xtremes 300gr" data-precio="170">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🌀</span><p>Foto Skwinkles</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Skwinkles (300gr)</h3>
+                    <p class="descripcion">Los favoritos de muchos, rebanados y espolvoreados a la perfección.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$170</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Skwinkles 300gr" data-precio="170">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🍉</span><p>Foto Watermelon Sour Belts</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Watermelon Sour Belts (300gr)</h3>
+                    <p class="descripcion">Tiras ácidas de sandía que combinan increíble con la mezcla de chiles de la casa.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$170</div>
+                        <button class="boton-comprar" data-nombre="Watermelon Sour Belts 300gr" data-precio="170">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <span class="badge-nuevo">✨ Nuevo</span>
+                    <div class="foto-placeholder"><span>🍓</span><p>Foto Strawberry Ropes</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Strawberry Ropes (400gr)</h3>
+                    <p class="descripcion">Tubos suaves sabor fresa cubiertos con nuestra icónica mezcla. ¡NUEVO!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$180</div>
+                        <button class="boton-comprar" data-nombre="Strawberry Ropes 400gr" data-precio="180">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🌈</span><p>Foto Bolsa Skittles</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Bolsa de Skittles (400gr)</h3>
+                    <p class="descripcion">Tus caramelos favoritos completamente cubiertos con nuestro chilito especial.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$190</div>
+                        <button class="boton-comprar" data-nombre="Bolsa Skittles 400gr" data-precio="190">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ BOLSAS AHOGADAS ══ -->
+        <div class="categoria-header" id="ahogadas">
+            <h2 class="categoria-titulo">💦 Bolsas Ahogadas</h2>
+            <div class="categoria-linea"></div>
+        </div>
+        <div class="grid-productos">
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🫙</span><p>Foto Gomitas Ahogadas</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Gomitas Ahogadas (500gr)</h3>
+                    <p class="descripcion">Gomitas bañadas con MUCHO chamoy artesanal. Elige: llavecitas, aritos, gusanitos, manguitos o panditas.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$120</div>
+                        <button class="boton-comprar" data-nombre="Gomitas Ahogadas 500gr" data-precio="120">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>🍬</span><p>Foto Dulces Ahogados</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Dulces Ahogados (500gr)</h3>
+                    <p class="descripcion">Dulces bañados con abundante chamoy preparado. Elige: aciduladitos o picafresas.</p>
+                    <div class="producto-footer">
+                        <div class="precio">$125</div>
+                        <button class="boton-comprar" data-nombre="Dulces Ahogados 500gr" data-precio="125">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>⭐</span><p>Foto Premium Ahogados</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Premium Ahogados (500gr)</h3>
+                    <p class="descripcion">Gomitas premium en chamoy: Skwinkles, Xtremes o Zumbagomas (Zumbagomas $160).</p>
+                    <div class="producto-footer">
+                        <div class="precio">$180</div>
+                        <button class="boton-comprar" data-nombre="Premium Ahogados 500gr" data-precio="180">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>💧</span><p>Foto Gushers 250gr</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Gushers Enchilados (250gr)</h3>
+                    <p class="descripcion">Esferas con centro líquido y nuestra mezcla especial. ¡Pídelas ahogadas en chamoy por +$20!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$200</div>
+                        <button class="boton-comprar" data-nombre="Gushers Enchilados 250gr" data-precio="200">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto">
+                <div class="foto-producto-wrap">
+                    <div class="foto-placeholder"><span>💧</span><p>Foto Gushers 500gr</p></div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="nombre-producto">Gushers Enchilados (500gr)</h3>
+                    <p class="descripcion">Presentación grande de Gushers con receta especial. ¡Pídelos ahogados en chamoy por +$20!</p>
+                    <div class="producto-footer">
+                        <div class="precio">$380</div>
+                        <button class="boton-comprar" data-nombre="Gushers Enchilados 500gr" data-precio="380">+ Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ PERSONALIZAR ══ -->
+        <div class="seccion-personalizar" id="personalizar">
+            <h2>✨ Arma tu Combinación Ideal</h2>
+            <p>¿Tienes un antojo muy específico? Elige tu formato base y selecciona los toppings que quieras.</p>
+
+            <div class="form-grupo">
+                <label><span>1</span> Selecciona tu Base:</label>
+                <select class="form-control">
+                    <option>Bolsa Enchilada Personalizada</option>
+                    <option>Bolsa Ahogada Personalizada</option>
+                    <option>Charola Personalizada</option>
+                </select>
+            </div>
+
+            <div class="form-grupo">
+                <label><span>2</span> Elige tus Toppings:</label>
+                <div class="grid-toppings">
+                    <label class="topping-item"><input type="checkbox">Bolas de tamarindo</label>
+                    <label class="topping-item"><input type="checkbox">Bolitas de chamoy</label>
+                    <label class="topping-item"><input type="checkbox">Checolines</label>
+                    <label class="topping-item"><input type="checkbox">Cacahuates enchilados</label>
+                    <label class="topping-item"><input type="checkbox">Manguitos</label>
+                    <label class="topping-item"><input type="checkbox">Panditas</label>
+                    <label class="topping-item"><input type="checkbox">Aritos</label>
+                    <label class="topping-item"><input type="checkbox">Gusanitos</label>
+                    <label class="topping-item"><input type="checkbox">Picagomas</label>
+                    <label class="topping-item"><input type="checkbox">Llavecitas aciditas</label>
+                    <label class="topping-item"><input type="checkbox">Aciduladitos</label>
+                    <label class="topping-item"><input type="checkbox">Skittles</label>
+                    <label class="topping-item"><input type="checkbox">Fruit by the Foot</label>
+                    <label class="topping-item"><input type="checkbox">Xtremes</label>
+                    <label class="topping-item"><input type="checkbox">Skwinkles</label>
+                    <label class="topping-item"><input type="checkbox">Zumbagomas</label>
+                    <label class="topping-item"><input type="checkbox">Gushers</label>
+                    <label class="topping-item"><input type="checkbox">Watermelon Sour Belts</label>
+                    <label class="topping-item"><input type="checkbox">Rellerindos</label>
+                    <label class="topping-item"><input type="checkbox">Strawberry Ropes</label>
+                    <label class="topping-item"><input type="checkbox">Rebanaditas de sandía</label>
+                    <label class="topping-item"><input type="checkbox">Sour Patch <span class="badge-limitado">Temporal</span></label>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /contenedor -->
+
+    <footer>
+        <p>🍬 <strong>Yummy Gummy</strong> — Morelia, Michoacán</p>
+        <p>Pedidos por WhatsApp · Hecho con 🧡 por fans del antojo</p>
+    </footer>
+
+    <!-- CARRITO FLOTANTE -->
+    <div id="carrito-flotante">
+        <h3>🛒 Tu Pedido</h3>
+        <ul id="lista-carrito"></ul>
+        <div class="carrito-total">
             <span>Total:</span>
             <span>$<span id="total-carrito">0</span></span>
         </div>
-        <button id="btn-whatsapp" style="background-color: #25D366; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: background-color 0.3s;">
-            Enviar pedido al WhatsApp
-        </button>
-        <button id="btn-vaciar" style="background-color: transparent; color: #999; border: none; width: 100%; margin-top: 10px; cursor: pointer; text-decoration: underline;">
-            Vaciar carrito
-        </button>
+        <button id="btn-whatsapp">📲 Enviar por WhatsApp</button>
+        <button id="btn-vaciar">Vaciar carrito</button>
     </div>
+
+    <!-- Botón mini flotante -->
+    <button id="btn-carrito-mini">
+        🛒
+        <span id="badge-count">0</span>
+    </button>
 
     <script>
         let carrito = [];
         let total = 0;
 
-        const botonesComprar = document.querySelectorAll('.producto .boton-comprar');
         const panelCarrito = document.getElementById('carrito-flotante');
         const listaCarrito = document.getElementById('lista-carrito');
-        const totalCarrito = document.getElementById('total-carrito');
-        const btnWhatsapp = document.getElementById('btn-whatsapp');
-        const btnVaciar = document.getElementById('btn-vaciar');
+        const totalEl = document.getElementById('total-carrito');
+        const btnMini = document.getElementById('btn-carrito-mini');
+        const badgeCount = document.getElementById('badge-count');
 
-        botonesComprar.forEach(boton => {
-            boton.addEventListener('click', (evento) => {
-                const tarjetaProducto = evento.target.closest('.producto');
-                const nombre = tarjetaProducto.querySelector('.nombre-producto').innerText;
-                const precioTexto = tarjetaProducto.querySelector('.precio').innerText;
-                const precio = parseFloat(precioTexto.replace('$', ''));
+        // Agregar al carrito
+        document.querySelectorAll('.boton-comprar').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const nombre = btn.dataset.nombre;
+                const precio = parseFloat(btn.dataset.precio);
 
-                carrito.push({ nombre: nombre, precio: precio });
+                carrito.push({ nombre, precio });
                 total += precio;
 
-                actualizarPantallaCarrito();
+                actualizarCarrito();
                 panelCarrito.style.display = 'block';
+                btnMini.style.display = 'none';
 
-                evento.target.innerText = "¡Agregado! ✔";
-                evento.target.style.opacity = "0.7";
+                const original = btn.textContent;
+                btn.textContent = '✔ ¡Listo!';
+                btn.style.background = 'linear-gradient(135deg,#25D366,#128C7E)';
                 setTimeout(() => {
-                    evento.target.innerText = "Agregar al carrito";
-                    evento.target.style.opacity = "1";
-                }, 1000);
+                    btn.textContent = original;
+                    btn.style.background = '';
+                }, 1200);
             });
         });
 
-        function actualizarPantallaCarrito() {
-            listaCarrito.innerHTML = '';
-            carrito.forEach((item) => {
-                listaCarrito.innerHTML += `<li style="font-size: 0.95rem; border-bottom: 1px solid #eee; padding: 8px 0; display: flex; justify-content: space-between;"><span>${item.nombre}</span> <span style="font-weight:bold; color:#ff8c42;">$${item.precio}</span></li>`;
-            });
-            totalCarrito.innerText = total;
+        function actualizarCarrito() {
+            listaCarrito.innerHTML = carrito.map(item =>
+                `<li><span>${item.nombre}</span><span>$${item.precio}</span></li>`
+            ).join('');
+            totalEl.textContent = total;
+            badgeCount.textContent = carrito.length;
         }
 
-        btnVaciar.addEventListener('click', () => {
+        // Vaciar
+        document.getElementById('btn-vaciar').addEventListener('click', () => {
             carrito = [];
             total = 0;
-            actualizarPantallaCarrito();
+            actualizarCarrito();
             panelCarrito.style.display = 'none';
+            btnMini.style.display = 'none';
         });
 
-        btnWhatsapp.addEventListener('click', () => {
-            let mensaje = "¡Hola Yummy Gummy! 🔥 Quiero hacer el siguiente pedido:%0A%0A";
-            carrito.forEach(item => {
-                mensaje += `🍬 1x ${item.nombre} ($${item.precio})%0A`;
-            });
-            mensaje += `%0A*Total a pagar: $${total}*%0A%0A¿A qué cuenta puedo depositar/transferir?`;
-            
-            // ====================================================
-            // ¡PON TU NÚMERO DE TELÉFONO AQUÍ!
-            // ====================================================
-            const tuNumero = "520000000000"; 
-            
-            window.open(`https://wa.me/${tuNumero}?text=${mensaje}`, '_blank');
+        // Cerrar panel → mostrar mini
+        panelCarrito.addEventListener('click', e => {
+            if (e.target === panelCarrito) {
+                panelCarrito.style.display = 'none';
+                if (carrito.length > 0) btnMini.style.display = 'flex';
+            }
+        });
+
+        btnMini.addEventListener('click', () => {
+            panelCarrito.style.display = 'block';
+            btnMini.style.display = 'none';
+        });
+
+        // WhatsApp
+        document.getElementById('btn-whatsapp').addEventListener('click', () => {
+            if (carrito.length === 0) return;
+            let msg = '¡Hola Yummy Gummy! 🔥 Quiero hacer el siguiente pedido:%0A%0A';
+            carrito.forEach(i => { msg += `🍬 ${i.nombre} — $${i.precio}%0A`; });
+            msg += `%0A*Total: $${total}*%0A%0A¿A qué cuenta puedo pagar?`;
+
+            // ⚠️ PON AQUÍ TU NÚMERO DE WHATSAPP (con código de país, sin espacios)
+            const numero = '521XXXXXXXXXX';
+            window.open(`https://wa.me/${numero}?text=${msg}`, '_blank');
         });
     </script>
 </body>
